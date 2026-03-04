@@ -13,6 +13,9 @@ from launch.actions import (DeclareLaunchArgument, IncludeLaunchDescription,
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, FindExecutable
+import sys
+sys.path.insert(0, get_package_share_directory("ros_rec") + "/launch")
+from composable import make_recorder_nodes  # type: ignore
 
 
 def generate_launch_description():
@@ -64,6 +67,9 @@ def generate_launch_description():
         parameters=[params_file]
     )
 
+    rec_node_list = make_recorder_nodes(keys=[f"ouster"])
+
+
     os_container = ComposableNodeContainer(
         name='os_container',
         namespace=ouster_ns,
@@ -71,9 +77,9 @@ def generate_launch_description():
         executable='component_container_mt',
         composable_node_descriptions=[
             os_sensor,
-            os_cloud,
-            os_image
-        ],
+            # os_cloud,
+            # os_image
+        ]+rec_node_list,
         output='screen',
     )
 

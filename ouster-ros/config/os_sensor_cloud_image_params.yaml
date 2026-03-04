@@ -4,12 +4,12 @@
 # and utilize the driver_params.yaml along with it. 
 ouster/os_sensor:
   ros__parameters:
-    sensor_hostname: ''
+    sensor_hostname: '192.168.100.12'
     udp_dest: ''
     mtp_dest: ''
     mtp_main: false
-    lidar_mode: ''
-    timestamp_mode: ''
+    lidar_mode: '2048x10'
+    timestamp_mode: 'TIME_FROM_PTP_1588'
     udp_profile_lidar: ''
     metadata: ''
     lidar_port: 0
